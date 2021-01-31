@@ -19,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::middleware('auth:api')->post('/register', [RegisteredUserController::class, 'store']);
-Route::middleware('auth:api')->post('/login', [AuthenticatedSessionController::class, 'store']);
-Route::get('/json', function (Request $request) {
-    return response('test')->json();
+Route::group(["middleware" => "api"], function () {
+    Route::post('/register', [RegisteredUserController::class, 'store']);
+    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 });

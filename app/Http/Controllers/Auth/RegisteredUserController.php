@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|confirmed|min:8',
+            'password' => 'required|string|min:8',
         ]);
 
         Auth::login($user = User::create([
@@ -44,8 +44,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]));
 
-        event(new Registered($user));
+        // event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME);
+        return response()->json(['redirect_url' => RouteServiceProvider::HOME]);
     }
 }
