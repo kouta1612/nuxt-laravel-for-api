@@ -13,16 +13,6 @@ use Illuminate\Support\Facades\Hash;
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('auth.register');
-    }
-
-    /**
      * Handle an incoming registration request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -46,6 +36,6 @@ class RegisteredUserController extends Controller
 
         // event(new Registered($user));
 
-        return response()->json(['redirect_url' => RouteServiceProvider::HOME]);
+        return response()->json([], 201);
     }
 }

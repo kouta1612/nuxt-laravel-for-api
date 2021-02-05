@@ -11,16 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('auth.login');
-    }
-
-    /**
      * Handle an incoming authentication request.
      *
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
@@ -32,7 +22,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect(RouteServiceProvider::HOME);
+        return response()->json(['isSuccess' => true], 201);
     }
 
     /**
@@ -43,12 +33,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        Auth::guard('api')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return response()->json([], 201);
     }
 }
