@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
 {
+    public function isAuthenticated()
+    {
+        return response()->json(['isAuthenticated' => Auth::check()], 201);
+    }
+
     /**
      * Handle an incoming authentication request.
      *
@@ -22,7 +27,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return response()->json(['isSuccess' => true], 201);
+        return response()->json([], 201);
     }
 
     /**
