@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\SocialLoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,6 @@ Route::group(["middleware" => "api"], function () {
     Route::post('/signup', [RegisteredUserController::class, 'store']);
     Route::post('/signin', [AuthenticatedSessionController::class, 'store']);
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
+    Route::get('/google', [SocialLoginController::class, 'redirectToProvider']);
+    Route::get('/google/callback', [SocialLoginController::class, 'handleProviderCallback']);
 });
