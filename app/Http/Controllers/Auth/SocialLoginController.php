@@ -20,12 +20,13 @@ class SocialLoginController extends Controller
     {
         $socialUser = Socialite::driver('google')->user();
         $user = User::firstOrNew(['email' => $socialUser->getEmail()]);
-        if ($user->exists()) {
+        if ($user->exists) {
             Auth::login($user);
             return response()->json([], 201);
         }
         $user->name = $socialUser->getName();
-        // $user->save();
+        $user->email = $socialUser->getEmail();
+        $user->save();
         Auth::login($user);
         return response()->json([], 201);
     }
